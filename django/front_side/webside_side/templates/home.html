@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+{{data.webname}}
+
+<div class="background-rotator">
+    <!-- slider start-->
+    <div class="owl-carousel owl-theme background-rotator-slider">
+       <!-- Slide -->
+       <div class="item linear-overlay"><img src="{% static 'images/slider/1.jpg' %}" alt=""></div>
+       <!-- Slide -->
+       <div class="item linear-overlay"><img  src="{% static 'images/slider/2.jpg' %}" alt=""></div>
+       <!-- Slide -->
+       <div class="item linear-overlay"><img src="{% static 'images/slider/3.jpg' %}" alt=""></div>
+    </div>
+    <div class="search-section">
+       <!-- Find search section -->
+       <div class="container">
+          <div class="row">
+             <div class="col-md-12">
+                <!-- Heading -->
+                <div class="content">
+                   <div class="heading-caption">
+                      <h1>Find what are you looking for</h1>
+                      <p>Over <strong>1000</strong> Classified Ads Listing</p>
+                   </div>
+                   <div class="search-form">
+       
+                         <div class="row">
+                         <form method="GET" action="{% url 'search_items' %}"> 
+                            <div class="col-md-4 col-xs-12 col-sm-4">
+                               <!-- Category -->
+                               <select type="text" name="search1" class="model form-control">
+                                  <option label="Select Option"></option>
+                                  <option value="cars">Cars</option>
+                                  <option value="motorcycles">Motorcycles</option>
+                                  <option value="boats">Boats</option>
+                                  </select>
+                            </div>
+                                     
+                            <!-- Input Field -->
+                            <div class="col-md-4 col-xs-12 col-sm-4">
+                               <input type="text" name="search" class="form-control" placeholder="What Are You Looking For..." />
+                            </div>
+                            <!-- Search Button -->
+                            <div class="col-md-4 col-xs-12 col-sm-4">
+                               <button type="submit" class="btn btn-theme btn-block">Search <i class="fa fa-search" aria-hidden="true"></i></button>
+                            </div>
+                         </div>
+                      </form>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <!-- /.Find search section-->
+ </div>
+ <div class="main-content-area clearfix">
+    <section class="custom-padding white over-hidden">
+        <!-- Main Container -->
+        <div class="container">
+           <!-- Row -->
+           <div class="row">
+              <!-- Heading Area -->
+              <div class="heading-panel">
+                 <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                    <!-- Main Title -->
+                    <h1>Latest <span class="heading-color"> Trending</span> Cars</h1>
+                    <!-- Short Description -->
+                    <p class="heading-text">We're your one-stop shop for buying and selling your car. Get matched to your perfect car, or sell one swiftly.</p>
+                 </div>
+              </div>
+              <div class="col-md-12 col-xs-12 col-sm-12"> 
+                <div class="row">
+                    <div class="featured-slider container owl-carousel owl-theme">
+                        {% for post in object_list %}
+                        {% if post.itemStatus == 'Active' %}
+                        <div class="item">
+                            <div class="grid-style-2">
+                               <!-- Listing Ad Grid -->
+                               <div class="col-md-12 col-xs-12 col-sm-12">
+                                  <div class="category-grid-box-1">
+                                    {%if post.featured == 'Yes'%}
+                                     <div class="featured-ribbon">
+                                        <span>Featured</span>
+                                     </div>
+                                     {%endif%}
+                                     <div class="image">
+                                       {% if post.image1 %}
+                                        <img alt="Carspot" src="{{post.image1.url}}" class="img-responsive">
+                                        <div class="ribbon popular"></div>
+                                        <div class="price-tag">
+                                           <div class="price"><span>${{post.price|intcomma}}</span></div>
+                                        </div>
+                                        {% endif %}
+                                     </div>
+                                     <div class="short-description-1 clearfix">
+                                        <div class="category-title"> <span><a href="{% url 'category' post.category %}">{{post.category|capfirst}}</a></span> </div>
+                                        <h3><a title="" href="{% url 'item_detail' post.pk %}">{{post.title}}</a></h3>
+                                        <p class="location"><i class="fa fa-map-marker"></i> {{post.location}}</p>
+                                        <ul class="list-unstyled">
+                                           <li><a href="{% url 'item_detail' post.pk %}"><i class="flaticon-gas-station-1"></i>Diesel</a></li>
+                                           {%if post.category == 'boats' %}
+                                           <li><a href="{% url 'item_detail' post.pk %}"><i class="flaticon-engine-4"></i>{{post.miles|intcomma}} hours</a></li>
+                                          {%else%}
+                                          <li><a href="{% url 'item_detail' post.pk %}"><i class="flaticon-dashboard"></i>{{post.miles|intcomma}} miles</a></li>
+                                          {%endif%}
+                                           <li><a href="{% url 'item_detail' post.pk %}"><i class="flaticon-engine-2"></i>{{post.make}}</a></li>
+                                           <li><a href="{% url 'item_detail' post.pk %}"><i class="flaticon-car-2"></i>{{post.bodytype}}</a></li>
+                                           <li><a href="{% url 'item_detail' post.pk %}"><i class="flaticon-cogwheel-outline"></i>White</a></li>
+                                        </ul>
+                                     </div>
+                                     <div class="ad-info-1">
+                                        <p><i class="flaticon-calendar"></i> &nbsp;<span>{{post.date}}</span> </p>
+                                        <ul class="pull-right">
+                                           <li> <a href="#"><i class="flaticon-like-1"></i></a> </li>
+                                           <li> <a href="#"><i class="flaticon-message"></i></a></li>
+                                        </ul>
+                                     </div>
+                                  </div>
+                                  <!-- Listing Ad Grid -->
+                               </div>
+                            </div>
+                         </div>
+                         {% endif %}
+                         {% endfor %}
+                      
+                    </div>           
+                </div> 
+              </div>  
+             </div>
+            </section>
+            <section class="sell-box padding-top-70">
+                <div class="container">
+                   <div class="row">
+                      <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                         <div class="sell-box-grid">
+                            <div class="short-info">
+                               <h3> Want To Buy A Car ?</h3>
+                               <a href="{%url 'all_items' %}">Are you looking for a car?</a>
+                               <p>Search your car in our Inventory and request a quote on the vehicle of your choosing. </p>
+                            </div>
+                            <div class="text-center">
+                               <img class="img-responsive wow slideInLeft center-block" data-wow-delay="0ms" data-wow-duration="2000ms" src="{% static 'images/sell.png' %}" alt="">
+                            </div>
+                         </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                         <div class="sell-box-grid">
+                            <div class="short-info">
+                               <h3> Want To Buy A Truck ?</h3>
+                               <a href="{%url 'all_items' %}">You want to buy your dream car?</a>
+                               <p>Request search your car in our Inventory and a quote on the vehicle of your choosing. </p>
+                            </div>
+                            <div class="text-center">
+                               <img class="img-responsive wow slideInRight center-block" data-wow-delay="0ms" data-wow-duration="2000ms" src="{% static 'images/sell-1.png' %}" alt="">
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </section>
+            <!-- =-=-=-=-=-=-= Blog Section =-=-=-=-=-=-= -->
+             <!-- =-=-=-=-=-=-= Latest Ads =-=-=-=-=-=-= -->
+             <section class="section-padding white">
+                <!-- Main Container -->
+                <div class="container">
+                   <!-- Row -->
+                   <div class="row">
+                      <!-- Heading Area -->
+                      <div class="heading-panel">
+                         <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                            <!-- Main Title -->
+                            <h1>Latest  <span class="heading-color"> Featured</span> Ads</h1>
+                            <!-- Short Description -->
+                                                    </div>
+                      </div>
+                      <!-- Middle Content Area -->
+                      <div class="col-md-12 col-sx-12">
+                         <!-- Row -->
+                         {% for post in object_list %}
+                         {%if post.itemStatus == 'Active' and post.featured == 'Yes' %}
+                         <ul class="list-unstyled">
+                            <!-- Listing Grid -->
+                            <li>
+                               <div class="well ad-listing clearfix">
+                                  <div class="col-md-3 col-sm-5 col-xs-12 grid-style no-padding">
+                                     <!-- Image Box -->
+                                     {% if post.image1 %}
+                                     <div class="img-box">
+                                        <img src="{{post.image1.url}}" class="img-responsive" alt="">
+                                        <div class="quick-view"> <a href="{% url 'item_detail' post.pk %}" data-toggle="modal" class="view-button"><i class="fa fa-search"></i></a> </div>
+                                     </div>
+                                     {% endif %}
+                                     <!-- Ad Status --><span class="ad-status"> Featured </span>
+                                     <!-- User Preview -->
+                                     <div class="user-preview">
+                                        <a href="{% url 'item_detail' post.pk %}"> {% if post.image1 %} <img src="{{post.image1.url}}" class="avatar avatar-small" alt=""> </a>
+                                     </div>               {% endif %}                   
+                                    </div>                   
+                                  
+                                  <div class="col-md-9 col-sm-7 col-xs-12">
+                                     <!-- Ad Content-->                                   
+                                     <div class="row">
+                                        
+                                        <div class="content-area">
+                                           <div class="col-md-9 col-sm-12 col-xs-12">
+                                              <!-- Ad Title -->
+                                              <h3><a href="{% url 'item_detail' post.pk %}">{{post.title}}</a></h3>
+                                              <!-- Ad Meta Info -->
+                                              <ul class="ad-meta-info">
+                                                 <li> <i class="fa fa-map-marker"></i>{{post.location}}</li>
+                                                 <li>{{post.date}} </li>
+                                              </ul>
+                                              <!-- Ad Description-->
+                                              <div class="ad-details">
+                                                 <p>{{ post.description|slice:":100"|safe }}</p>
+                                                 <ul class="list-unstyled">
+                                                    <li><i class="flaticon-gas-station-1"></i>Diesel</li>
+                                                    <li><i class="flaticon-dashboard"></i>{{post.miles|intcomma}}</li>
+                                                    <li><i class="flaticon-transport-1"></i>{{post.make}}</li>
+                                                    <li><i class="flaticon-gearshift"></i>{{post.transmission}}</li>
+                                                    <li><i class="flaticon-calendar-2"></i>{{post.year}}</li>
+                                                 </ul>
+                                              </div>
+                                           </div>
+                                           <div class="col-md-3 col-xs-12 col-sm-12">
+                                              <!-- Ad Stats -->
+                                              <div class="short-info">
+                                                 <div class="ad-stats hidden-xs"><span>Condition  : </span>Used</div>
+                                                 <div class="ad-stats hidden-xs"><span>Warranty : </span>7 Days</div>
+                                                 <div class="ad-stats hidden-xs"><span>Type : </span>{{post.bodytype}}</div>
+                                              </div>
+                                              <!-- Price -->
+                                              <div class="price"> <span>${{post.price|intcomma}}</span> </div>
+                                              <!-- Ad View Button -->
+                                              <a href="{% url 'item_detail' post.pk %}"><button class="btn btn-block btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View Ad.</button></a>
+                                           </div>
+                                        </div>
+                                        
+                                     </div>
+                                     <!-- Ad Content End -->
+                                     
+                                  </div>
+                                  
+                               </div>
+                            </li>
+                         </ul>
+                         {%endif%}
+                         {% endfor %}
+                         <!-- Row End -->
+                      </div>
+                      <!-- Middle Content Area  End -->
+                   </div>
+                   <!-- Row End -->
+                </div>
+                <!-- Main Container End -->
+                <div class="clearfix"></div>
+                <div class="text-center">
+                   <div class="load-more-btn">
+                     <a href="{% url 'all_items' %}">
+                      <button class="btn btn-theme"> View All Listings <i class="fa fa-refresh"></i> </button></a>
+                   </div>
+                </div>
+             </section>
+
+
+             <div class="funfacts custom-padding parallex">
+                <div class="container">
+                   <div class="row">
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                         <div class="icons">
+                            <i class="flaticon-vehicle"></i>
+                         </div>
+                         <div class="number"><span class="timer" data-from="0" data-to="{{data.count_items}}" data-speed="1500" data-refresh-interval="5">0</span>+</div>
+                         <h4>Total <span>Cars</span></h4>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                         <div class="icons">
+                            <i class="flaticon-security"></i>
+                         </div>
+                         <div class="number"><span class="timer" data-from="0" data-to="820" data-speed="1500" data-refresh-interval="5">0</span>+</div>
+                         <h4>Verified <span>Dealers</span></h4>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                         <div class="icons">
+                            <i class="flaticon-like-1"></i>
+                         </div>
+                         <div class="number"><span class="timer" data-from="0" data-to="1042" data-speed="1500" data-refresh-interval="5">0</span>+</div>
+                         <h4>Active <span>Users</span></h4>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                         <div class="icons">
+                            <i class="flaticon-cup"></i>
+                         </div>
+                         <div class="number"><span class="timer" data-from="0" data-to="{{data.count_featured}}" data-speed="1500" data-refresh-interval="5">0</span>+</div>
+                         <h4>Featured <span>Ads</span></h4>
+                      </div>
+                   </div>
+                   <!-- /.row -->
+                </div>
+                <!-- /.container -->
+             </div>
+{% endblock %}  

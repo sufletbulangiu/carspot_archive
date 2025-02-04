@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="page-header-area-2 gray">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="small-breadcrumb">
+               <div class="breadcrumb-link">
+                  <ul>
+                     <li><a href="{% url 'home' %}">Home Page</a></li>
+                     <li><a class="active" href="#">Edit Posting</a></li>
+                  </ul>
+               </div>
+               <div class="header-page">
+                  <h1>Edit Your Ad - {{ user }}</h1>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+      <!-- =-=-=-=-=-=-= Breadcrumb End =-=-=-=-=-=-= -->
+      <!-- =-=-=-=-=-=-= Main Content Area =-=-=-=-=-=-= -->
+      <div class="main-content-area clearfix">
+         <!-- =-=-=-=-=-=-= Latest Ads =-=-=-=-=-=-= -->
+         <section class="section-padding no-top gray ">
+
+<div class="container">
+    <!-- Row -->
+    <div class="row">
+       <div class="col-md-8 col-lg-8 col-xs-12 col-sm-12">
+          <!-- end post-padding -->
+          <div class="post-ad-form postdetails">
+            <form method="post" enctype="multipart/form-data" novalidate>
+               {% csrf_token %}
+                <!-- Title  -->
+                <div class="row">
+                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                  {{ form.itemStatus|as_crispy_field }}
+             </div>
+             <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+               {{ form.featured|as_crispy_field }}
+          </div>
+            </div>
+                <div class="row">
+                  <!-- Category  -->
+                  <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                       {{ form.category|as_crispy_field }}
+                  </div>
+                  <!-- Price  -->
+                  <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">                      
+                     {{ form.title|as_crispy_field }}
+                  </div>
+               </div>
+                <div class="row">
+                   <!-- Category  -->
+                   <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                        {{ form.make|as_crispy_field }}
+                   </div>
+                   <!-- Price  -->
+                   <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">                      
+                      {{ form.price|as_crispy_field }}
+                   </div>
+                </div>
+                <!-- end row -->
+                <div class="row">
+                   <!-- Category  -->
+                   <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                    {{ form.year|as_crispy_field }}
+                   </div>
+                   <!-- Price  -->
+                   <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                     {{ form.miles|as_crispy_field }}
+                   </div>
+                </div>
+                <!-- end row -->
+                <div class="row">
+                  <!-- Category  -->
+                  <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                   {{ form.transmission|as_crispy_field }}
+                  </div>
+                  <!-- Price  -->
+                  <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                     {{ form.bodytype|as_crispy_field }}
+                  </div>
+               </div>
+               <div class="row">
+                   <!-- Category  -->
+                   <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                    {{ form.color|as_crispy_field }}
+                   </div>
+                   <!-- Price  -->
+                   <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                    {{ form.location|as_crispy_field }}
+                   </div>
+                </div>
+                <div class="row">
+                  <!-- Category  -->
+                  <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                     {{ form.engine|as_crispy_field }}
+                  </div>
+                  <!-- Price  -->
+                  <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                     {{ form.fuelType|as_crispy_field }}
+                  </div>
+               </div>
+                <!-- end row -->
+                <!-- Image Upload  -->
+                <div class="row">
+                   <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                      <label class="control-label">Select Additional Features Your Car Has</label>
+                      <!-- Brands List -->                    
+                      <div class="skin-minimal">
+                         <ul class="list">
+                            <li class="col-md-4 col-sm-6 col-xs-12">
+                                {{ form.alloyWheels|as_crispy_field }}
+                            </li>
+                            <li class="col-md-4 col-sm-6 col-xs-12">
+                                {{ form.abs|as_crispy_field }}
+                            </li>
+                            <li class="col-md-4 col-sm-6 col-xs-12">
+                                {{ form.air|as_crispy_field }}
+                            </li>
+                            <li class="col-md-4 col-sm-6 col-xs-12">
+                                {{ form.radio|as_crispy_field }}
+                            </li>
+                            <li class="col-md-4 col-sm-6 col-xs-12">
+                                {{ form.cd|as_crispy_field }}
+                            </li>
+                            <li class="col-md-4 col-sm-6 col-xs-12">
+                                {{ form.bonnet|as_crispy_field }}
+                            </li>
+                            <li class="col-md-4 col-sm-6 col-xs-12">
+                                {{ form.airBags|as_crispy_field }}
+                            </li>
+                            <li class="col-md-4 col-sm-6 col-xs-12">
+                                {{ form.coolBox|as_crispy_field }}
+                            </li>
+                            <li class="col-md-4 col-sm-6 col-xs-12">
+                                {{ form.powerSteering|as_crispy_field }}
+                            </li>
+                            <li class="col-md-4 col-sm-6 col-xs-12">
+                              {{ form.powerLocks|as_crispy_field }}
+                          </li>
+                          <li class="col-md-4 col-sm-6 col-xs-12">
+                           {{ form.powerWindows|as_crispy_field }}
+                       </li>
+                         </ul>
+                      </div>
+                      <!-- Brands List End -->  
+                   </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                     <label class="control-label">Photos for your ad <small>Please add images of your ad. (350x450)</small></label>
+                  <div id="dropzone" class="dropzone"></div>
+                  {{ form.image1|as_crispy_field }}
+                  {{ form.image2|as_crispy_field }}
+                  {{ form.image3|as_crispy_field }}
+                  {{ form.image4|as_crispy_field }}
+                  {{ form.image5|as_crispy_field }}
+               </div>
+              </div>
+                <div class="row">
+                   <div class="col-md-12 col-lg-12 col-xs-12  col-sm-12">
+                      <label class="control-label">Ad Description <small>Enter long description for your project</small></label>
+                      {{ form.description|as_crispy_field }}
+                   </div>
+                </div>
+
+                <!-- end row -->
+                <button type="submit" class="btn btn-theme pull-right">Update My Ad</button>
+             </form>
+
+          </div>
+          <!-- end post-ad-form-->
+       </div>
+       <!-- end col -->
+       <!-- Right Sidebar -->
+       <div class="col-md-4 col-xs-12 col-sm-12">
+          <!-- Sidebar Widgets -->
+          <div class="blog-sidebar">
+             <!-- Categories --> 
+             <div class="widget">
+                <div class="widget-heading">
+                   <h4 class="panel-title"><a>Saftey Tips </a></h4>
+                </div>
+                <div class="widget-content">
+                   <p class="lead">Posting an ad on <a href="#">Carspot</a> is free! However, all ads must follow our rules:</p>
+                   <ol>
+                      <li>Make sure you post in the correct category.</li>
+                      <li>Do not post the same ad more than once or repost an ad within 48 hours.</li>
+                      <li>Do not upload pictures with watermarks.</li>
+                      <li>Do not post ads containing multiple items unless it's a package deal.</li>
+                      <li>Do not put your email or phone numbers in the title or description.</li>
+                      <li>Make sure you post in the correct category.</li>
+                      <li>Do not post the same ad more than once or repost an ad within 48 hours.</li>
+                      <li>Do not upload pictures with watermarks.</li>
+                      <li>Do not post ads containing multiple items unless it's a package deal.</li>
+                   </ol>
+                </div>
+             </div>
+             <!-- Latest News --> 
+          </div>
+          <!-- Sidebar Widgets End -->
+       </div>
+       <!-- Middle Content Area  End --><!-- end col -->
+    </div>
+    <!-- Row End -->
+ </div>
+{% endblock %}

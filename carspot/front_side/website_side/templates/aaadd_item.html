@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Post Your Ad</h1>
+
+<div class="form-group">
+   <form method="POST">
+       {% csrf_token %}
+       {{form.as_p}}
+       <button class="btn btn-secondery">POST </button>
+    </form>
+</div>
+{% endblock %} 

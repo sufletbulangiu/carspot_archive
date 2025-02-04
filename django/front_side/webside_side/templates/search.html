@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block title %} Search | Vehicle Marketplace Online {% endblock %}
+
+{% block content %}
+<div class="page-header-area-2 gray">
+    <div class="container">
+       <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+             <div class="small-breadcrumb">
+                <div class=" breadcrumb-link">
+                   <ul>
+                      <li><a href="{% url 'home' %}">Home Page</a></li>
+                      <li><a class="active" href="#">Search</a></li>
+                   </ul>
+                </div>
+                <div class="header-page">
+                  
+                    <h1>Listing View  - ({{object_list|length }})</h1>
+                 </div>
+                
+                <div class="header-page">
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- =-=-=-=-=-=-= Breadcrumb End =-=-=-=-=-=-= -->
+ <!-- =-=-=-=-=-=-= Main Content Area =-=-=-=-=-=-= -->
+ <div class="main-content-area clearfix">
+    <!-- =-=-=-=-=-=-= Latest Ads =-=-=-=-=-=-= -->
+    <section class="section-padding no-top gray">
+       <!-- Main Container -->
+       <div class="container">
+          <!-- Row -->
+          <div class="row">
+             <!-- Middle Content Area -->
+             <div class="col-md-12 col-lg-12 col-sx-12">
+                <!-- Row -->
+                <ul class="list-unstyled">
+                   <!-- Listing Grid -->                  
+                 
+                   <!-- Listing Grid -->
+                   
+                   {% for item in object_list %}
+                   
+                  
+                   <li>
+                      <div class="well ad-listing clearfix">
+                         <div class="col-md-3 col-sm-5 col-xs-12 grid-style no-padding">
+                            <!-- Image Box -->
+                            <div class="img-box">
+                               <img src="{{ item.image1.url }}" class="img-responsive" alt="">
+                               <div class="total-images"><strong>5</strong> photos </div>
+                               <div class="quick-view"> <a href="#ad-preview" data-toggle="modal" class="view-button"><i class="fa fa-search"></i></a> </div>
+                            </div>
+                            {% if item.featured == 'Yes' %}
+                            <!-- Ad Status --><span class="ad-status"> Featured </span>
+                            {% endif %}
+                            <!-- User Preview -->
+                            <div class="user-preview">
+                               <a href="#"> <img src="{{ item.image1.url }}" class="avatar avatar-small" alt=""> </a>
+                            </div>
+                         </div>
+                         <div class="col-md-9 col-sm-7 col-xs-12">
+                            <!-- Ad Content-->
+                            <div class="row">
+                               <div class="content-area">
+                                  <div class="col-md-9 col-sm-12 col-xs-12">
+                                     <!-- Ad Title -->
+                                     <h3><a href="{% url 'item_detail' item.pk %}">{{item.title}}</a></h3>
+                                     <!-- Ad Meta Info -->
+                                     <ul class="ad-meta-info">
+                                        <li> <i class="fa fa-map-marker"></i><a href="#">{{ item.location }}</a> </li>
+                                        <li>{{ item.date }} </li>
+                                     </ul>
+                                     <!-- Ad Description-->
+                                     <div class="ad-details">
+                                        <p>{{ item.description|slice:":100"|safe }}... </p>
+                                        <ul class="list-unstyled">
+                                           <li><i class="flaticon-gas-station-1"></i>Diesel</li>
+                                           <li><i class="flaticon-dashboard"></i>{{ item.miles }} miles</li>
+                                           <li><i class="flaticon-engine-2"></i>1800 cc</li>
+                                           <li><i class="flaticon-key"></i>{{ item.transmission }}</li>
+                                           <li><i class="flaticon-calendar-2"></i>{{ item.year }}</li>
+                                        </ul>
+                                     </div>
+                                  </div>
+                                  <div class="col-md-3 col-xs-12 col-sm-12">
+                                     <!-- Ad Stats -->
+                                     <div class="short-info">
+                                        <div class="ad-stats hidden-xs"><span>Condition  : </span>Used</div>
+                                        <div class="ad-stats hidden-xs"><span>Warranty : </span>7 Days</div>
+                                        <div class="ad-stats hidden-xs"><span>Sub Category : </span>Furniture</div>
+                                     </div>
+                                     <!-- Price -->
+                                     <div class="price"> <span>$110,50</span> </div>
+                                     <!-- Ad View Button -->
+                                     <a href="{% url 'item_detail' item.pk %}"><button class="btn btn-block btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View Ad.</button></a>
+                                  </div>
+                               </div>
+                            </div>
+                            <!-- Ad Content End -->
+                         </div>
+                      </div>
+                   </li>
+                   {% endfor %}
+
+                </ul>
+                <!-- Advertizing -->
+                <section class="advertising">
+                   <a href="{% url 'all_items' %}">
+                      <div class="banner">
+                         <div class="wrapper">
+                            <span class="title">Do you want to purchase a vehicle?</span>
+                            <span class="submit">Look Here! <i class="fa fa-plus-square"></i></span>
+                         </div>
+                      </div>
+                      <!-- /.banner-->
+                   </a>
+                </section>
+                <!-- Advertizing End -->
+                <!-- Ads Archive End -->  
+                <div class="clearfix"></div>
+                <!-- Pagination --> 
+                <div class="col-md-12 col-xs-12 col-sm-12">
+                   <ul class="pagination pagination-lg">
+                  {% if is_paginated %}
+                    {% if page_obj.has_previous %}
+                  <li> <a href="?page={{page_obj.previous_page_number}}"> <i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+                    {% endif %}                                
+                    {% for i in page_obj.paginator.page_range %}  
+                    {% if i == page_obj.number %}                                                 
+                      <li class="active"> <a href="?page={{ i }}">{{ i }}</a> </li> 
+                   {% else %}
+                   <li> <a href="?page={{ i }}">{{ i }}</a> </li> 
+                    {% endif %}                                  
+                    {% endfor %}
+                      {% if page_obj.has_next %}
+                      <li><a href="?page={{ page_obj.next_page_number }}"> <i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+                      {% endif %}  
+                   </ul>
+                </div>
+                <!-- Pagination End -->  
+                {% endif %}  
+   
+              </div>
+             <!-- Middle Content Area  End -->
+          </div>
+          <!-- Row End -->
+       </div>
+       <!-- Main Container End -->
+    </section>
+{% endblock %}

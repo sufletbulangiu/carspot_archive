@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="page-header-area-2 gray">
+    <div class="container">
+       <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+             <div class="small-breadcrumb">
+                <div class="breadcrumb-link">
+                   <ul>
+                      <li><a href="{% url 'show_profile' user.pk %}">Profile</a></li>
+                      <li><a class="active">Delete</a></li>
+                   </ul>
+                </div>
+                <div class="header-page">
+                   <h1>Delete</h1>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- =-=-=-=-=-=-= Breadcrumb End =-=-=-=-=-=-= --> 
+ <!-- =-=-=-=-=-=-= Main Content Area =-=-=-=-=-=-= -->
+ <div class="main-content-area clearfix">
+    <!-- =-=-=-=-=-=-= About CarSpot =-=-=-=-=-=-= -->
+    <section class="section-padding no-top gray">
+<div class="container">
+    <div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+    <strong>Delete {{post.title}}? </strong></br>
+    <button class="btn btn-danger">YES</button>
+    <button class="btn btn-info"><a href="{% url 'show_profile' user.pk %}">NO</a></button>
+    </form>
+
+    </div>
+
+    </section>
+    </div>
+{% endblock %}

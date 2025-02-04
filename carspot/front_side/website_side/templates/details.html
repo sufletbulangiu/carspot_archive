@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+{% block title %}Carspot | {{post.title}}{% endblock %}
+{% load humanize %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-header-area-2 no-bottom gray">
+    <div class="container">
+       <div class="row">
+          <div class="col-lg-12 no-padding  col-md-12 col-sm-12 col-xs-12">
+             <div class="small-breadcrumb">
+             <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class=" breadcrumb-link">
+                   <ul>
+                      <li><a href="{% url 'category' post.category %}">{{post.category|capfirst}}</a></li>
+                      <li><a class="active" href="{% url 'item_detail' post.pk %}">Ad Details</a></li>
+                   </ul>
+                </div>
+              </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- =-=-=-=-=-=-= Breadcrumb End =-=-=-=-=-=-= -->
+ <!-- =-=-=-=-=-=-= Main Content Area =-=-=-=-=-=-= -->
+ <div class="main-content-area clearfix">
+    <!-- =-=-=-=-=-=-= Latest Ads =-=-=-=-=-=-= -->
+    <section class="section-padding no-top gray ">
+       <!-- Main Container -->
+       <div class="container">
+          <!-- Row -->
+          <div class="row">
+              <div class="pricing-area">
+                   <div class="col-md-9 col-xs-12 col-sm-8">
+                       <div class="heading-zone">
+                           <h1>{{post.title}}</h1>
+                           <div class="short-history">
+                               <ul>
+                                   <li><b>{{post.date}}</b></li>
+                                   <li>Category: <b><a href="{% url 'category' post.category %}">{{post.category|capfirst}} </a></b></li>
+                                   {% if user.is_authenticated %}
+                                   {% if user.id == post.author.id %}
+                                   <li><a href="{% url 'update_item' post.pk %}">Edit</a></li>
+                                   {%endif%}
+                                   {% endif %}
+                               </ul>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-md-3 col-sm-4 detail_price col-xs-12">
+                       <div class="singleprice-tag">${{post.price|intcomma}}<span>(Fixed)</span></div>
+                   </div>
+              </div>
+             <!-- Middle Content Area -->
+             <div class="col-md-8 col-xs-12 col-sm-12">
+                <!-- Single Ad -->
+                <div class="singlepage-detail ">
+                  {% if post.featured == 'Yes' %}
+                   <div class="featured-ribbon">
+                      <span>Featured</span>
+                   </div>
+                   {%endif%}
+                   <div id="single-slider" class="flexslider">
+                      <ul class="slides">
+                         <li><a href="{{post.image1.url}}" data-fancybox="group"><img alt="" src="{{post.image1.url}}" /></a></li>
+                         <li><a href="{{post.image2.url}}" data-fancybox="group"><img alt="" src="{{post.image2.url}}" /></a></li>
+                         <li><a href="{{post.image3.url}}" data-fancybox="group"><img alt="" src="{{post.image3.url}}" /></a></li>
+                         <li><a href="{{post.image4.url}}" data-fancybox="group"><img alt="" src="{{post.image4.url}}" /></a></li>
+                         <li><a href="{{post.image5.url}}" data-fancybox="group"><img alt="" src="{{post.image5.url}}" /></a></li>
+                         <li><a href="{{post.image1.url}}" data-fancybox="group"><img alt="" src="{{post.image1.url}}" /></a></li>
+                      </ul>
+                   </div>
+                   <div id="carousel" class="flexslider">
+                      <ul class="slides">
+                         <li><img alt="" src="{{post.image1.url}}"></li>
+                         <li><img alt="" src="{{post.image2.url}}"></li>
+                         <li><img alt="" src="{{post.image3.url}}"> </li>
+                         <li><img alt="" src="{{post.image4.url}}"></li>
+                         <li><img alt="" src="{{post.image5.url}}"></li>
+                      </ul>
+                   </div>
+                   <div class="key-features">
+                         <div class="boxicon">
+                            <i class="flaticon-gas-station-1 petrol"></i>
+                            <p>{{post.fuelType}}</p>
+                         </div>
+                         <div class="boxicon">
+                            <i class="flaticon-dashboard-1 kilo-meter"></i>
+                            <p>{{post.miles|intcomma}} km</p>
+                         </div>
+                         <div class="boxicon">
+                            <i class="flaticon-tool engile-capacity"></i>
+                            <p>{{post.engine}} cc</p>
+                         </div>
+                         <div class="boxicon">
+                            <i class="flaticon-calendar reg-year"></i>
+                            <p>{{post.year}}</p>
+                         </div>
+                         <div class="boxicon">
+                            <i class="flaticon-gearshift transmission"></i>
+                            <p>{{post.transmission}}</p>
+                         </div>
+                         <div class="boxicon">
+                            <i class="flaticon-transport-1 body-type"></i>
+                            <p>{{post.bodytype}}</p>
+                         </div>
+                         <div class="boxicon">
+                            <i class="flaticon-cogwheel-outline car-color"></i>
+                            <p>{{post.color}}</p>
+                         </div>
+                      </div>
+                   <div class="content-box-grid">
+                      <!-- Heading Area -->
+                      <div class="short-features">
+                         <!-- Heading Area -->
+                         <div class="heading-panel">
+                            {% if post.category == 'cars' %}
+                            <div class="heading-panel">
+                                <h3 class="main-title text-left">
+                                   Car Features
+                                </h3>
+                                <ul class="car-feature-list ">                            
+                                 {% if post.radio %}<li><i class="flaticon-antenna"></i> AM/FM Radio</li>{%endif%}                                                 
+                                 {% if post.air %}<li><i class="flaticon-air-conditioner-1"></i>Air Conditioning</li>{%endif%}  
+                                 {% if post.radio %}<li><i class="flaticon-cd"></i> Cassette Player</li>{%endif%}  
+                                 {% if post.abs %}<li><i class="flaticon-disc-brake-1"></i>ABS</li>{%endif%}  
+                                 {% if post.powerSteering %}<li><i class="flaticon-engine-1"></i> Power Steering</li>{%endif%}  
+                                 {% if post.alloyWheels %}<li><i class="flaticon-rim"></i> Alloy Wheels</li>{%endif%}  
+                                 {% if post.air %}<li><i class="flaticon-airbag"></i>Airbags Package</li>{%endif%}  
+                                 {% if post.bonnet %}<li><i class="flaticon-transport-1"></i>Bonnet Protector</li>{%endif%}  
+                                 {% if post.coolBox %}<li><i class="flaticon-settings"></i>Cool Box</li>{%endif%} 
+                                 {% if post.powerLocks %}<li><i class="flaticon-car-4"></i> Power Locks</li>{%endif%}
+                                 {% if post.powerWindows %}<li><i class="flaticon-window"></i> Power Windows</li>{%endif%}
+                              </ul>
+                             </div>
+                             {%endif%} 
+                            <h3 class="main-title text-left">
+                               Description 
+                            </h3>
+                         </div>
+                         
+                         <p>{{post.description}}</p>
+                        </div>
+                        <!-- Related Image  --> 
+                        <div class="ad-related-img">
+                           <img src="images/car-img1.png" alt="" class="img-responsive center-block">
+                        </div>
+                        <!-- Heading Area -->
+    
+                        <!-- Car Key Features  --> 
+ 
+                     </div>
+                     <!-- Short Features  --> 
+                     <div class="clearfix"></div>
+                  </div>
+                <!-- Single Ad End --> 
+                <!-- =-=-=-=-=-=-= Latest Ads =-=-=-=-=-=-= -->
+                
+                <!-- =-=-=-=-=-=-= Latest Ads End =-=-=-=-=-=-= -->
+             </div>
+             <!-- Right Sidebar -->
+             <div class="col-md-4 col-xs-12 col-sm-12">
+                <!-- Sidebar Widgets -->
+                <div class="sidebar">
+                   <!-- Price info block -->  
+                   <div class="category-list-icon">
+                         <i class="green flaticon-mail-1"></i>
+                         <div class="category-list-title">
+                            <h5><a href="#" data-toggle="modal" data-target=".price-quote">Contact Seller</a></h5>
+                         </div>
+                      </div>
+                   
+                  
+                   <!-- User Info -->
+                   <div class="white-bg user-contact-info">
+                      <div class="user-info-card">
+                         <div class="user-photo col-md-4 col-sm-3  col-xs-4">
+                            <img class="img-circle" src="{% static 'images/users/guest.png' %}" alt="">
+                         </div>
+                         <div class="user-information  col-md-8 col-sm-9 col-xs-8">
+                            <span class="user-name"><a class="hover-color" >{{post.author|upper  }}</a></span>
+                            <div class="item-date">
+                            </div>
+                         </div>
+                         <div class="clearfix"></div>
+                      </div>
+                   </div>
+  
+                  
+
+                   <!-- Recent Ads --> 
+                   <div class="widget">
+                    <div class="widget-heading">
+                       <h4 class="panel-title"><a>Recent Ads</a></h4>
+                    </div>
+                    <div class="widget-content recent-ads">
+                       <!-- Ads -->
+                       {%for item in product %}
+                       <div class="recent-ads-list">
+                          <div class="recent-ads-container">
+                             <div class="recent-ads-list-image">
+                                <a href="#" class="recent-ads-list-image-inner">
+                                <img src="{{item.image1.url}}" alt="">
+                                </a><!-- /.recent-ads-list-image-inner -->
+                             </div>
+                             
+                             <!-- /.recent-ads-list-image -->
+                             <div class="recent-ads-list-content">
+                                <h3 class="recent-ads-list-title">
+                                   <a href="{% url 'item_detail' item.pk %}">{{item.title}}</a>
+                                </h3>
+                                <ul class="recent-ads-list-location">
+                                   <li><a href="#">{{item.location}}</a></li>
+                                </ul>
+                                <div class="recent-ads-list-price">
+                                   ${{item.price|intcomma}}
+                                </div>
+                                <!-- /.recent-ads-list-price -->
+                             </div>
+                             <!-- /.recent-ads-list-content -->
+                          </div>
+                          <!-- /.recent-ads-container -->
+                       </div>
+                       <!-- Ads -->
+                       {% endfor %}                
+                    </div>
+                 </div>
+                                     <!--  Financing calculator  --> 
+                                      <!-- Saftey Tips  --> 
+                   <div class="widget">
+                      <div class="widget-heading">
+                         <h4 class="alert alert-success alert-dismissible"><p>Safety tips for deal</p></h4>
+                      </div>
+                      <div class="widget-content saftey">
+                         <ol>
+                            <li>Never use instant cash services</li>
+                            <li>Avoid cash transactions</li>
+                            <li>Use legit bank trasnfers</li>
+                         </ol>
+                      </div>
+                   </div>
+                </div>
+                <!-- Sidebar Widgets End -->
+             </div>
+             <!-- Middle Content Area  End -->
+          </div>
+          <!-- Row End -->
+       </div>
+       <!-- Main Container End -->
+    </section>
+          <!-- =-=-=-=-=-=-= Quote Modal =-=-=-=-=-=-= -->
+          <div class="modal fade price-quote" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                     <h3 class="modal-title" id="lineModalLabel">Contact the seller</h3>
+                  </div>
+                  <div class="modal-body">
+                     <div class="recent-ads">
+                        <div class="recent-ads-list">
+                           <div class="recent-ads-container">
+                              <div class="recent-ads-list-image">
+                                 <a href="{{post.image1.url}}" class="recent-ads-list-image-inner">
+                                 <img src="{{post.image1.url}}" alt="">
+                                 </a><!-- /.recent-ads-list-image-inner -->
+                              </div>
+                              <!-- /.recent-ads-list-image -->
+                           <form method="post" novalidate>
+                                 {% csrf_token %}
+                              <div class="recent-ads-list-content">
+                                 <h3 class="recent-ads-list-title">
+                                 <a href="#">{{post.title}}</a>
+                                 </h3>
+                                 <input name="title" id="title" value="{{post.title}}" hidden="hidden"></input>
+                                 <input name="author" id="author" value="{{post.author.email}}" hidden="hidden"></input>
+                                 <input name="price" id="price" value="{{post.price}}" hidden="hidden"></input>
+                                 <ul class="recent-ads-list-location">
+                                    <li><a href="#">{{post.location}}</a></li>
+                                 </ul>
+                                 <div class="recent-ads-list-price">
+                                    ${{post.price|intcomma}}
+                                 </div>
+                                 <!-- /.recent-ads-list-price -->
+                              </div>
+                              <!-- /.recent-ads-list-content -->
+                           </div>
+                           <!-- /.recent-ads-container -->
+                        </div>
+                     </div>
+                     <!-- content goes here -->
+                    
+                        <div class="form-group  col-md-6  col-sm-6">
+                           <label>Your Name</label>
+                           <input type="text" id="name" name="name" class="form-control" placeholder="Enter Your Name"> 
+                        </div>
+                        <div class="form-group  col-md-6  col-sm-6">
+                           <label>Email Address</label>
+                           <input type="email" id="email" name="email" class="form-control" placeholder="Enter email"> 
+                        </div>
+                        <div class="form-group  col-md-12  col-sm-12">
+                           <label>Contact No</label>
+                           <input type="text" id="phone" name="phone"  class="form-control" placeholder="Contact No"> 
+                        </div>
+                        <div class="form-group  col-md-12  col-sm-12">
+                           <label>Comments</label>
+                           <textarea id="message" name="message" id="id_message" placeholder="What is the price of the Honda Civic 2017 you have in your inventory?" rows="3" class="form-control">Is the {{post.title}} still available for sale ?</textarea>
+                        </div>
+                        <div class="col-md-12  col-sm-12"> <img src="images/captcha.gif" alt="" class="img-responsive"> </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12  col-sm-12 margin-bottom-20 margin-top-20">
+                           <button type="submit" class="btn btn-theme btn-block">Submit</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+{% endblock %}
